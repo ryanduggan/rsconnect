@@ -244,6 +244,14 @@ deployApp <- function(appDir = getwd(),
     preDeploy(appPath)
   }
 
+  if (is.null(appFiles)) {
+    appFiles <- missing_arg()
+  }
+
+  if (is.null(appFileManifest)) {
+    appFileManifest <- missing_arg()
+  }
+
   appFiles <- standardizeAppFiles(appDir, appFiles, appFileManifest)
 
   if (isTRUE(lint)) {
