@@ -845,11 +845,19 @@ availableCRANSourcePackages <- function() {
 # explicitly via list, or explicitly via manifest. Always returns paths
 # related to `appDir`
 standardizeAppFiles <- function(appDir,
-                                appFiles = NULL,
-                                appFileManifest = NULL,
+                                appFiles,
+                                appFileManifest,
                                 error_call = caller_env()) {
 
   check_exclusive(appFiles, appFileManifest, .require = FALSE, .call = error_call)
+
+  # assigning NULL to whichever of appFiles and appFileManifest were not supplied
+  if(is_missing(appFiles)) {
+    appFiles <- NULL
+  }
+  if (is_missing(appFileManifest)) {
+    appFileManifest <- NULL
+  }
 
   no_content <- function(message) {
     cli::cli_abort(
